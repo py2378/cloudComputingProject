@@ -1,0 +1,24 @@
+{
+  "name": "cloudcomputingproject",
+  "version": "1.0.0",
+  "description": "team:\r - Bouillet Nicolas\r - Bernard Geoffrey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/py2378/cloudComputingProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/py2378/cloudComputingProject/issues"
+  },
+  "homepage": "https://github.com/py2378/cloudComputingProject#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.7"
+  }
+}
