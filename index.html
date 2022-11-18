@@ -1,13 +1,29 @@
-<form id="findByPosition">
+<form id="findByName">
+    <input type="text" placeholder="nom station" id="name"/>
+    <input type="submit" value="recherche par nom"/>
+</form>
+
+<form id="deleteStation">
+    <input type="text" placeholder="id station à supprimer" id="idStation"/>
+    <input type="submit" value="supprimer station"/>
+</form>
+
+<form id="deleteArea">
     <input type="number" placeholder="0" step="0.0000000001" id="latitude"/>
     <input type="number" placeholder="0" step="0.0000000001" id="longitude"/>
     <input type="button" value="Auto" id="auto"/>
-    <input type="submit" value="Rechercher par position"/>
+    <input type="submit" value="Suppression des stations dans la zone"/>
 </form>
 
+<!--<form id="getLeastOccupied">-->
+<!--    <input type="button" value="Obtenir les stations presque vide" id="leastOccupied"/>-->
+<!--</form>-->
 <script>
     const latitude = document.getElementById('latitude');
     const longitude = document.getElementById('longitude');
+    const searchedName = document.getElementById('name');
+    const id = document.getElementById('idStation');
+    // const leastOccupied = document.getElementById('leastOccupied');
     const auto = document.getElementById('auto');
 
     auto.addEventListener('click', function() {
@@ -18,13 +34,60 @@
             });
     });
 
-    const findByPosition = document.getElementById('findByPosition');
+    const findByName = document.getElementById('findByName');
+    const deleteStation = document.getElementById('deleteStation');
+    const deleteArea = document.getElementById('deleteArea');
+    // const getLeastOccupied = document.getElementById('getLeastOccupied');
 
-    findByPosition.addEventListener('submit', function(event) {
+    findByName.addEventListener('submit', function(event) {
         event.preventDefault();
 
         (async function() {
-            const result = await fetch('http://localhost:1769/findByPosition', {
+            const result = await fetch('http://localhost:1769/findByName', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: searchedName.value
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await result.json();
+
+            console.log(data);
+        })();
+
+        return false;
+    });
+
+    deleteStation.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        (async function() {
+            const result = await fetch('http://localhost:1769/deleteStation', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id: id.value
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await result.json();
+
+            console.log(data);
+        })();
+
+        return false;
+    });
+
+    deleteArea.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        (async function() {
+            const result = await fetch('http://localhost:1769/deleteArea', {
                 method: 'POST',
                 body: JSON.stringify({
                     latitude: latitude.value,
@@ -42,4 +105,22 @@
         
         return false;
     });
+    // getLeastOccupied.addEventListener('submit', function(event) {
+    //     event.preventDefault();
+    //
+    //     (async function() {
+    //         const result = await fetch('http://localhost:1769/getLeastOccupied', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    //
+    //         const data = await result.json();
+    //
+    //         console.log(data);
+    //     })();
+    //
+    //     return false;
+    // });
 </script>
